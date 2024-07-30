@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oluwaniademi Ogundana - My Poetry</title>
+    <style>
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --header-background: #f4f4f4;
+            --link-color: #0645AD;
+            --button-color: #007bff;
+        }
+
+        [data-theme="dark"] {
+            --background-color: #121212;
+            --text-color: #e0e0e0;
+            --header-background: #1f1f1f;
+            --link-color: #bb86fc;
+            --button-color: #bb86fc;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            background-color: var(--header-background);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .header img {
+            border-radius: 50%;
+            margin-right: 20px;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .theme-toggle-button {
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--button-color);
+            color: var(--text-color);
+            text-decoration: none;
+            margin-top: 10px;
+            margin-left: 0; /* Adjust margin as needed */
+            display: inline-block;
+            transition: background-color 0.3s;
+            font-size: 10px; /* Ensure consistent font size */
+            line-height: 1.5; /* Ensure consistent height */
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid var(--button-color);
+            padding-bottom: 5px;
+        }
+
+        .poetry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .poetry-card {
+            background-color: var(--header-background);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .poetry-card h3 {
+            margin-top: 0;
+        }
+
+        .poetry-card p {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .poetry-button {
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--button-color);
+            color: var(--text-color);
+            text-decoration: none;
+            margin-top: 10px;
+            margin-left: 0; /* Adjust margin as needed */
+            display: inline-block;
+            transition: background-color 0.3s;
+            font-size: 10px; /* Ensure consistent font size */
+            line-height: 1.5; /* Ensure consistent height */
+        }
+
+        .poetry-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="profile_picture.png" alt="Profile Picture">
+        <div>
+            <h1>My Poetry!!</h1>
+            <button class="theme-toggle-button" onclick="toggleTheme()">Toggle Dark Mode</button>
+            <a href="index.html" class="poetry-button">Back to Home</a>
+        </div>
+    </header>
+
+    <section>
+        <ul class="poetry-list">
+            <li>
+                <h2>Janus</h2>
+                <p>
+                    I<br>
+                    Silent shroud of gray, night's soft embrace,<br>
+                    Where life, like a spent taper, fades away.<br>
+                    Oft does the sun set on joys in swift decay,<br>
+                    In the web of sorrow Time doth trace.<br>
+                    Breath by breath, whispers of our mortal race,<br>
+                    And moonlight weeps o&apos;er love&apos;s untimely day.<br>
+                    We walk this world, echoes in a shrine's space,<br>
+                    To Death, the stranger, the foe, the friend to stay.<br>
+                    From the cradle&apos;s edge to the silent womb,<br>
+                    Every laughter but a prelude to a sigh.<br>
+                    Life, a fleeting dance in a darkening room,<br>
+                    Towards the grave where we all lie.<br>
+                    Janus, in your backward gaze, we find,<br>
+                    That all life leaves, only death stays behind.<br><br>
+                    
+                    II<br>
+                    Yet, turn thy other face towards the dawn,<br>
+                    Where hope springs eternal in the human breast.<br>
+                    Speak not of what is gone, but what may be drawn,<br>
+                    From the future's canvas, vibrant, unexpressed.<br>
+                    Each sunset is but a pause &apos;fore the morrow&apos;s birth,<br>
+                    And every end, a beginning in disguise.<br>
+                    For, in the grand ballet of the Earth,<br>
+                    The fallen rise, the old makes way for the wise.<br>
+                    Look upon death, not as an end, but as a sleep,<br>
+                    A moment's rest 'fore the soul&apos;s flight to the stars.<br>
+                    In the heart of sorrow, secrets of joy we keep,<br>
+                    Life&apos;s sweetest notes played on the strings of scars.<br>
+                    Janus, in thy forward gaze, we see,<br>
+                    The promise of reunion, in death's decree.<br>
+                </p>
+            </li>
+            <li>
+                <h2>Over</h2>
+                <p>
+                    Like a bird sitting on a floor...<br>
+                    I refused to take flight<br>
+                    Not because I couldn't<br>
+                    But because I didn't want to.
+                </p>
+            </li>
+            <li>
+                <h2>Februa</h2>
+                <p>
+                    I - Baptism<br>
+                    White velour smears the green garden,<br>
+                    Water clings to the body<br>
+                    And for some time, it seems like<br>
+                    You wish for it to take you to the other side.<br>
+                    You stay there, so convincingly, like the whole congregation<br>
+                    Was there with you, in the water<br>
+                    And you rise up, like<br>
+                    Some divine being wants us to believe this religious stuff.<br>
+                    They are convinced, and for some time, you are too.<br><br>
+
+                    II - Meditation<br>
+                    Thick air brushes it's indefatigable fingers on the skin,<br>
+                    Insecurities come to mind,<br>
+                    So for some time you allow yourself to wander.<br>
+                    Your body remains in the room, but the soul is miles away.<br>
+                    You compensate for your longing,<br>
+                    With mirages of the mind,<br>
+                    And for a brief moment, you believe you see Him,<br>
+                    Or some form of Him.<br>
+                    Your mind is an amusement park, and so<br>
+                    You keep lying to yourself.<br><br>
+
+                    Stop Running<br><br>
+
+                    III - Energetic Detox<br>
+                    You are joking now.<br>
+                    The dead boy hangs around your bed,<br>
+                    following you<br>
+                    Everywhere you<br>
+                    Go.<br>
+                    The rooms swirl thick with smoke,<br>
+                    You dance around, sage at hand, and for some time,<br>
+                    You can see the dead boy, dressed in the gray,<br>
+                    But the dead boy…<br>
+                    Does not leave.<br>
+                    And Februa*…<br>
+                    Does not help.<br><br>
+
+                    Fabrua: Roman festival of purification
+                </p>
+            </li>
+            <!-- Add more poems as needed -->
+        </ul>
+    </section>
+
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", newTheme);
+        }
+    </script>
+</body>
+</html>
