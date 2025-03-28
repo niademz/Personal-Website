@@ -58,7 +58,7 @@
             margin-left: 0; /* Adjust margin as needed */
             display: inline-block;
             transition: background-color 0.3s;
-            font-size: 10px; /* Ensure consistent font size */
+            font-size: 12px; /* Ensure consistent font size */
             line-height: 1.5; /* Ensure consistent height */
         }
 
@@ -221,7 +221,7 @@
             margin-left: 0; /* Adjust margin as needed */
             display: inline-block;
             transition: background-color 0.3s;
-            font-size: 10px; /* Ensure consistent font size */
+            font-size: 12px; /* Ensure consistent font size */
             line-height: 1.5; /* Ensure consistent height */
         }
 
@@ -247,7 +247,7 @@
 
     <section class="section">
         <h2>About Me</h2>
-        <p>Obsessed with aerospace engineering, started coding because high school was boring, fell in love with it. Interested in mental health. Loves adventure! (I also like dark mode hence the toggle dark mode button)</p>
+        <p>Obsessed with aerospace engineering, started coding because high school was boring, fell in love with it. Interested in mental health. Loves adventure! Currently studying aerospace engineering at Purdue and working on creating a Rotating Detonation Engine.</p>
     </section>
 
     <section class="section">
@@ -275,7 +275,7 @@
                     <div class="overlay">
                         <div class="text">
                             <h3>Safe Space</h3>
-                            <p>Mental health platform for teens where they can speak anonymously, shar epoetry, and just chill!</p>
+                            <p>Mental health platform for teens where they can speak anonymously, share poetry, and just chill!</p>
                             <p><strong>Next.js, Supabase, Typescript, Tailwind</strong></p>
                         </div>
                     </div>
@@ -283,7 +283,7 @@
             </div>
             <div class="project-card">
                 <a href="https://niademz.itch.io/affirmation-nation">
-                    <img src="Screenshot 2024-07-29 193103.png" alt="Affirmation Nation">
+                    <img src="affirm.png" alt="Affirmation Nation">
                     <div class="overlay">
                         <div class="text">
                             <h3>Affirmation nation</h3>
@@ -317,7 +317,32 @@
                     </div>
                 </a>
             </div>
+            <div class="project-card">
+                <a href="https://purpl.space">
+                    <img src="RDE.png" alt="PURPL RDE">
+                    <div class="overlay">
+                        <div class="text">
+                            <h3>PURPL RDE</h3>
+                            <p>Creating a Rotating Detonation Engine for Power Generation. The goal is the achieve a stable detonation wave which powers a turbine.</p>
+                            <p><strong>Computational Fluid Dynamics, Propulsion System Design, Experimental Testing</strong></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="project-card">
+                <a href="https://get-your-money-up.vercel.app/">
+                    <img src="GYMU.png" alt="Get Your Money Up 101">
+                    <div class="overlay">
+                        <div class="text">
+                            <h3>Get Your Money Up 101</h3>
+                            <p>Interactive Financial literacy game developed for Purdue Black Student Union</p>
+                            <p><strong>Next.JS, Tailwind CSS, Typescript</strong></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
     </section>
+    
 
     <section class="section experience-section">
         <h2>Experience</h2>
@@ -414,10 +439,17 @@
 
     <script>
         function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute("data-theme");
-            const newTheme = currentTheme === "dark" ? "light" : "dark";
-            document.documentElement.setAttribute("data-theme", newTheme);
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme); // Save theme in localStorage
         }
+
+        // Apply saved theme on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem("theme") || "light"; // Default to light if no preference
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        });
         document.addEventListener("DOMContentLoaded", function() {
             let timelineItems = document.querySelectorAll('.timeline-item');
             
