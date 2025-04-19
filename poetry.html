@@ -1,318 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oluwaniademi Ogundana - My Poetry</title>
-    <style>
-        :root {
-            --background-color: #ffffff;
-            --text-color: #000000;
-            --header-background: #f4f4f4;
-            --link-color: #0645AD;
-            --button-color: #007bff;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oluwaniademi Ogundana - My Poetry</title>
+  <style>
+    :root {
+      --background-color: #ffffff;
+      --text-color: #000000;
+      --header-background: #f4f4f4;
+      --link-color: #0645AD;
+      --button-color: #007bff;
+    }
+    [data-theme="dark"] {
+      --background-color: #121212;
+      --text-color: #e0e0e0;
+      --header-background: #1f1f1f;
+      --link-color: #bb86fc;
+      --button-color: #bb86fc;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      background-color: var(--header-background);
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    .header img {
+      border-radius: 50%;
+      margin-right: 20px;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    .theme-toggle-button {
+      cursor: pointer;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--button-color);
+      color: var(--text-color);
+      text-decoration: none;
+      margin-top: 10px;
+      margin-left: 0;
+      display: inline-block;
+      transition: background-color 0.3s;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    #poem-container {
+      background-color: var(--header-background);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    #poem-container h2 {
+      margin-top: 0;
+      border-bottom: 2px solid var(--button-color);
+      padding-bottom: 5px;
+    }
+    #poem-container pre {
+      white-space: pre-wrap;
+      font-family: inherit;
+    }
+    .poetry-button {
+      cursor: pointer;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--button-color);
+      color: var(--text-color);
+      text-decoration: none;
+      margin: 0 10px;
+      transition: background-color 0.3s;
+      font-size: 14px;
+    }
+    .poetry-button:hover {
+      background-color: #0056b3;
+    }
+    .poem-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    }
+    .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* shrink label to icon only since it's on the side */
+    padding: 8px 12px;
+    font-size: 18px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    }
+    /* left button */
+    .nav-button.left {
+    left: -60px; /* adjust to taste */
+    }
 
-        [data-theme="dark"] {
-            --background-color: #121212;
-            --text-color: #e0e0e0;
-            --header-background: #1f1f1f;
-            --link-color: #bb86fc;
-            --button-color: #bb86fc;
-        }
+    /* right button */
+    .nav-button.right {
+    right: -60px;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            background-color: var(--header-background);
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .header img {
-            border-radius: 50%;
-            margin-right: 20px;
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-        }
-
-        .theme-toggle-button {
-            cursor: pointer;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--button-color);
-            color: var(--text-color);
-            text-decoration: none;
-            margin-top: 10px;
-            margin-left: 0; /* Adjust margin as needed */
-            display: inline-block;
-            transition: background-color 0.3s;
-            font-size: 10px; /* Ensure consistent font size */
-            line-height: 1.5; /* Ensure consistent height */
-        }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section h2 {
-            border-bottom: 2px solid var(--button-color);
-            padding-bottom: 5px;
-        }
-
-        .poetry-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .poetry-card {
-            background-color: var(--header-background);
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .poetry-card h3 {
-            margin-top: 0;
-        }
-
-        .poetry-card p {
-            margin-bottom: 0;
-        }
-
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .poetry-button {
-            cursor: pointer;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--button-color);
-            color: var(--text-color);
-            text-decoration: none;
-            margin-top: 10px;
-            margin-left: 0; /* Adjust margin as needed */
-            display: inline-block;
-            transition: background-color 0.3s;
-            font-size: 10px; /* Ensure consistent font size */
-            line-height: 1.5; /* Ensure consistent height */
-        }
-
-        .poetry-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    .nav-button:hover {
+    opacity: 1;
+    }
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @keyframes glow { from { box-shadow: 0 0 0 rgba(255,255,255,0); }
+                  to   { box-shadow: 0 0 20px rgba(187,134,252,0.6); } }
+    .poem-glow { animation: glow 1s ease-in-out infinite alternate; }
+    .flash { animation: flash 0.2s ease-in-out; }
+    .poem-pulse { animation:pulse 0.5s ease-in-out}
+    @keyframes flash { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <img src="profile_picture.png" alt="Profile Picture">
-        <div>
-            <h1>My Poetry!!</h1>
-            <button class="theme-toggle-button" onclick="toggleTheme()">Toggle Dark Mode</button>
-            <a href="index.html" class="poetry-button">Back to Home</a>
-        </div>
-    </header>
+  <header class="header">
+    <img src="profile_picture.png" alt="Profile Picture">
+    <div>
+      <h1>My Poetry!!</h1>
+      <button class="theme-toggle-button" onclick="toggleTheme()">Toggle Dark Mode</button>
+      <a href="index.html" class="poetry-button">Back to Home</a>
+    </div>
+  </header>
 
-    <section>
-        <ul class="poetry-list">
-            <li>
-                <h2>Janus</h2>
-                <p>
-                    I<br>
-                    Silent shroud of gray, night's soft embrace,<br>
-                    Where life, like a spent taper, fades away.<br>
-                    Oft does the sun set on joys in swift decay,<br>
-                    In the web of sorrow Time doth trace.<br>
-                    Breath by breath, whispers of our mortal race,<br>
-                    And moonlight weeps o&apos;er love&apos;s untimely day.<br>
-                    We walk this world, echoes in a shrine's space,<br>
-                    To Death, the stranger, the foe, the friend to stay.<br>
-                    From the cradle&apos;s edge to the silent womb,<br>
-                    Every laughter but a prelude to a sigh.<br>
-                    Life, a fleeting dance in a darkening room,<br>
-                    Towards the grave where we all lie.<br>
-                    Janus, in your backward gaze, we find,<br>
-                    That all life leaves, only death stays behind.<br><br>
-                    
-                    II<br>
-                    Yet, turn thy other face towards the dawn,<br>
-                    Where hope springs eternal in the human breast.<br>
-                    Speak not of what is gone, but what may be drawn,<br>
-                    From the future's canvas, vibrant, unexpressed.<br>
-                    Each sunset is but a pause &apos;fore the morrow&apos;s birth,<br>
-                    And every end, a beginning in disguise.<br>
-                    For, in the grand ballet of the Earth,<br>
-                    The fallen rise, the old makes way for the wise.<br>
-                    Look upon death, not as an end, but as a sleep,<br>
-                    A moment's rest 'fore the soul&apos;s flight to the stars.<br>
-                    In the heart of sorrow, secrets of joy we keep,<br>
-                    Life&apos;s sweetest notes played on the strings of scars.<br>
-                    Janus, in thy forward gaze, we see,<br>
-                    The promise of reunion, in death's decree.<br>
-                </p>
-            </li>
-            <li>
-                <h2>Over</h2>
-                <p>
-                    Like a bird sitting on a floor...<br>
-                    I refused to take flight<br>
-                    Not because I couldn't<br>
-                    But because I didn't want to.
-                </p>
-            </li>
-            <li>
-                <h2>Februa</h2>
-                <p>
-                    I - Baptism<br>
-                    White velour smears the green garden,<br>
-                    Water clings to the body<br>
-                    And for some time, it seems like<br>
-                    You wish for it to take you to the other side.<br>
-                    You stay there, so convincingly, like the whole congregation<br>
-                    Was there with you, in the water<br>
-                    And you rise up, like<br>
-                    Some divine being wants us to believe this religious stuff.<br>
-                    They are convinced, and for some time, you are too.<br><br>
+  <main class="section">
+    <div class="poem-wrapper">
+      <button id="prevBtn" class="poetry-button nav-button left">←</button>
+      <div id="poem-container">
+        <!-- One poem will be injected here -->
+      </div>
+      <button id="nextBtn" class="poetry-button nav-button right">→</button>
+    </div>
+  </main>
 
-                    II - Meditation<br>
-                    Thick air brushes it's indefatigable fingers on the skin,<br>
-                    Insecurities come to mind,<br>
-                    So for some time you allow yourself to wander.<br>
-                    Your body remains in the room, but the soul is miles away.<br>
-                    You compensate for your longing,<br>
-                    With mirages of the mind,<br>
-                    And for a brief moment, you believe you see Him,<br>
-                    Or some form of Him.<br>
-                    Your mind is an amusement park, and so<br>
-                    You keep lying to yourself.<br><br>
+  <script>
+    // Dark mode toggle (unchanged)
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", saved);
+    });
+  </script>
 
-                    Stop Running<br><br>
+  <script type="module">
+    import { loadModel, predictEmotionScores } from './scripts/infer-browser.js';
 
-                    III - Energetic Detox<br>
-                    You are joking now.<br>
-                    The dead boy hangs around your bed,<br>
-                    following you<br>
-                    Everywhere you<br>
-                    Go.<br>
-                    The rooms swirl thick with smoke,<br>
-                    You dance around, sage at hand, and for some time,<br>
-                    You can see the dead boy, dressed in the gray,<br>
-                    But the dead boy…<br>
-                    Does not leave.<br>
-                    And Februa*…<br>
-                    Does not help.<br><br>
+    let poems = [], currentIndex = 0;
 
-                    Fabrua: Roman festival of purification
-                </p>
-            </li>
-            <li>
-                <h2>Night Walkers</h2>
-                <p>
-                    And then there's us,<br>
-                    Those who do not cross<br>
-                    To the other side –<br>
-                    So we walk the night.<br><br>
+    async function init() {
+      await loadModel();
+      poems = await fetch('/data/poems.json').then(r => r.json());
+      renderPoem();
+      document.getElementById('prevBtn').onclick = () => {
+        currentIndex = (currentIndex - 1 + poems.length) % poems.length;
+        renderPoem();
+        };
+        document.getElementById('nextBtn').onclick = () => {
+        currentIndex = (currentIndex + 1) % poems.length;
+        renderPoem();
+        };
+    }
 
-                    Our dreams, colorful kaleidoscopes,<br>
-                    Bleeding onto the night sky, aching<br>
-                    To be vented, almost like a secret<br>
-                    But too big to be kept in.<br><br>
+    function renderPoem() {
+      const { title, text } = poems[currentIndex];
+      document.getElementById('poem-container').innerHTML = `
+        <h2>${title}</h2>
+        <pre>${text}</pre>
+      `;
+      const scores = predictEmotionScores(text);
+      applyTheming(scores);
+    }
 
-                    Reality is thinner at night, like cellophane<br>
-                    Stretched over something beautiful but<br>
-                    Unreachable. And our dreams, <br>
-                    Driving us to this hamlet like madness<br><br>
+    function applyTheming([h,a,j,s,f,sp,n,l,ho,c,aw,m]) {
+      document.body.style.backgroundColor =
+        `hsla(${h*36},60%,50%,${0.4 + s/10*0.6})`;
 
-                    Like if we stay awake for longer they might<br>
-                    Touch us. Chase us instead. I tug the<br>
-                    Strings of the puppet master to go after them<br>
-                    But all we do is walk the night.<br><br>
+      // surprise → flash
+      if (sp > 7) {
+        document.getElementById('poem-container')
+          .classList.add('flash');
+        setTimeout(() => document.getElementById('poem-container')
+          .classList.remove('flash'), 5);
+      }
+      // awe → glow
+      if (aw > 5) {
+        document.getElementById('poem-container')
+          .classList.add('poem-glow');
+      } else {
+        document.getElementById('poem-container')
+          .classList.remove('poem-glow');
+      }
+    }
 
-                    Too paralyzed by our potential,<br>
-                    Too full of ideas, yet stuck in them.<br>
-                    It is not insomnia no. It is something<br>
-                    Grotesque. <br><br>
-
-                    And then –<br>
-                    (the stars again)<br>
-                    Still there, some restless,<br>
-                    Some unable to move but<br><br>
-
-                    Understanding they are part of something<br>
-                    Beautiful. Mocking in their silence.<br>
-                    Or Maybe that’s me. Staring at myself.<br><br>
-
-                    I should go to sleep.<br>
-                    I should want to.<br>
-                    I, the dream –<br>
-                    (What dream?)<br><br>
-
-                    It presses behind my eyes.<br>
-                    Heavy. Stubborn. <br>
-                    Watching me.<br>
-                    I wait.<br><br>
-
-                    It doesn’t move.<br><br>
-
-                    I wait.<br><br>
-
-                    And still – <br><br>
-
-                    Nothing.<br>
-
-                </p>
-            </li>
-            <!-- Add more poems as needed -->
-        </ul>
-    </section>
-
-    <script>
-        function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute("data-theme");
-        const newTheme = currentTheme === "dark" ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", newTheme);
-        localStorage.setItem("theme", newTheme); // Save theme in localStorage
-        }
-
-        // Apply saved theme on page load
-        document.addEventListener("DOMContentLoaded", function () {
-            const savedTheme = localStorage.getItem("theme") || "light"; // Default to light if no preference
-            document.documentElement.setAttribute("data-theme", savedTheme);
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-            let timelineItems = document.querySelectorAll('.timeline-item');
-            
-            function activateTimelineItem() {
-                timelineItems.forEach(item => {
-                    const rect = item.getBoundingClientRect();
-                    if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', activateTimelineItem);
-            activateTimelineItem(); // Trigger once on load
-        });
-    </script>
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
