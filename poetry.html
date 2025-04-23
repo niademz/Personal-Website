@@ -389,15 +389,20 @@
 
     function renderPoem() {
       const { title, text } = poems[currentIndex];
-      const lines = text.split('\n').filter(l => l.trim());
+      const lines = text.split('\n');
       const container = document.getElementById('poem-container');
       container.innerHTML = `<h2>${title}</h2>`;
       lines.forEach(line => {
-        const span = document.createElement('span');
-        span.className = 'poem-line';
-        span.textContent = line;
-        span.dataset.scores = JSON.stringify(predictEmotionScores(line));
-        container.appendChild(span);
+        if (line === '') {
+          const br = document.createElement('br');
+          container.appendChild(br);
+        } else {
+          const span = document.createElement('span');
+          span.className = 'poem-line';
+          span.textContent = line;
+          span.dataset.scores = JSON.stringify(predictEmotionScores(line));
+          container.appendChild(span);
+        }
       });
       const scores = predictEmotionScores(text);
       applyTheming(scores, title + '' + text);
