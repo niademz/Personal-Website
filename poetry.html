@@ -33,6 +33,7 @@
       padding: 10px;
       margin-bottom: 20px;
       border-radius: 10px;
+      z-index: 1;
     }
     .header img {
       border-radius: 50%;
@@ -40,6 +41,14 @@
       width: 100px;
       height: 100px;
       object-fit: cover;
+      z-index: 1;
+    }
+    .header div{
+      z-index: 1;
+    }
+    .header header{
+      z-index: 1;
+      position: relative;
     }
     .theme-toggle-button {
       cursor: pointer;
@@ -96,7 +105,8 @@
   justify-content: space-between;
   max-width: 800px;        
   margin: 0 auto 40px;     
-  gap: 20px;               
+  gap: 20px;
+  z-index: 1;               
 }
 
 /* poem container flex‑fills between the buttons */
@@ -109,6 +119,7 @@
   position: relative;      /* so pop‑outs (like glow) still work */
   height: 80vh;        
   overflow-y: auto;
+  z-index: 1;
 }
 
 /* nav buttons now in normal flow, no absolute positioning */
@@ -118,6 +129,7 @@
   padding: 10px 16px;
   opacity: 0.8;
   transition: opacity 0.2s;
+  z-index: 1;
 }
 
     .nav-button:hover {
@@ -204,6 +216,34 @@
     .melancholy-tone {
       filter: saturate(0.5) brightness(0.9);
     }
+    #star-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      pointer-events: none;
+      z-index: -1;        /* sits behind poem-container */
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation-name: twinkle;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.1; }
+      to   { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -243,6 +283,33 @@
     import { loadModel, predictEmotionScores } from './scripts/infer-browser.js';
 
     let poems = [], currentIndex = 0;
+    let starFieldCreated = false;
+
+    function enableNightSky() {
+      if (!starFieldCreated) {
+        const field = document.createElement('div');
+        field.id = 'star-field';
+        for (let i = 0; i < 100; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.top    = Math.random() * 100 + '%';
+          star.style.left   = Math.random() * 100 + '%';
+          star.style.animationDelay    = (Math.random() * 5) + 's';
+          star.style.animationDuration = (1 + Math.random() * 2) + 's';
+          field.appendChild(star);
+        }
+        document.body.appendChild(field);
+        starFieldCreated = true;
+      }
+    }
+
+    function disableNightSky() {
+      const field = document.getElementById('star-field');
+      if (field) {
+        field.remove();
+        starFieldCreated = false;
+      }
+    }
 
     async function init() {
       await loadModel();
@@ -265,10 +332,10 @@
         <pre>${text}</pre>
       `;
       const scores = predictEmotionScores(text);
-      applyTheming(scores);
+      applyTheming(scores, title + '' + text);
     }
 
-    function applyTheming([h, a, j, s, f, sp, n, l, ho, c, aw, m]) {
+    function applyTheming([h, a, j, s, f, sp, n, l, ho, c, aw, m], fullText) {
       const pc = document.getElementById('poem-container');
       const body = document.body;
 
@@ -351,6 +418,12 @@
         pc.classList.add('melancholy-tone');
       } else {
         pc.classList.remove('melancholy-tone');
+      }
+
+      if (fullText.toLowerCase().includes('night')) {
+        enableNightSky();
+      } else {
+        disableNightSky();
       }
     }
 
