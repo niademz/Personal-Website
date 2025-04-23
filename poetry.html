@@ -214,7 +214,7 @@
 
     /* Melancholy desaturate */
     .melancholy-tone {
-      filter: saturate(0.5) brightness(0.9);
+      filter: grayscale(100%) contrast(0.9) brightness(0.8);
     }
     #star-field {
       position: fixed;
@@ -413,12 +413,15 @@
         pc.classList.remove('awe-glow');
       }
 
-      // 12) Melancholy → desaturation
-      if (m > 5) {
-        pc.classList.add('melancholy-tone');
-      } else {
-        pc.classList.remove('melancholy-tone');
-      }
+      const grayPct = m * 10               
+      const bright  = 1 - m * 0.02         
+      const sat     = 1 - m * 0.05         
+
+      pc.style.filter = `
+        grayscale(${grayPct}%)
+        brightness(${bright})
+        saturate(${sat})
+      `.trim()
 
       if (fullText.toLowerCase().includes('night')) {
         enableNightSky();
