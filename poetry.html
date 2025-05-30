@@ -281,6 +281,92 @@
       to   { opacity: 1; }
     }
   </style>
+  <style>
+  @media (max-width: 600px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .header img {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 1.5em;
+    }
+
+    .theme-toggle-button,
+    .poetry-button {
+      font-size: 12px;
+      padding: 8px 14px;
+      margin: 6px 4px;
+    }
+
+    .poem-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "poem   poem"
+      "prev   next";
+    gap: 10px;
+    margin: 0 auto 40px;
+    max-width: 90%;
+  }
+
+    .nav-button {
+      width: auto;
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    #poem-container {
+      order: 0;
+      height: auto;
+      max-height: 70vh;
+      width: 90%;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 15px;
+    }
+
+    #emotion-bar button {
+      font-size: 14px;
+      padding: 4px 6px;
+    }
+    .nav-prev   { order: 1; }
+    .nav-next   { order: 1; }
+
+    .poem-nav-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    #poem-container {
+    grid-area: poem;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+  }
+
+  /* prev button goes left */
+  #prevBtn {
+    grid-area: prev;
+    justify-self: end;
+  }
+
+  /* next button goes right */
+  #nextBtn {
+    grid-area: next;
+    justify-self: start;
+  }
+  }
+</style>
 </head>
 <body>
   <header class="header">
@@ -308,14 +394,20 @@
   </div>
 
   <main class="section">
-    <div class="poem-wrapper">
-      <button id="prevBtn" class="poetry-button nav-button">←</button>
-      <div id="poem-container">
-        <!-- injected poem -->
-      </div>
-      <button id="nextBtn" class="poetry-button nav-button">→</button>
+  <div class="poem-wrapper">
+    <button id="prevBtn"
+            class="poetry-button nav-button nav-prev">
+      ←
+    </button>
+    <div id="poem-container">
+      <!-- … -->
     </div>
-  </main>
+    <button id="nextBtn"
+            class="poetry-button nav-button nav-next">
+      →
+    </button>
+  </div>
+</main>
 
   <script>
     function toggleTheme() {
