@@ -3,7 +3,7 @@ import path from 'path';
 import { cleanText } from './cleanText.mjs';
 
 // === CONFIG ===
-const NUM_POEMS = 20;
+const NUM_POEMS = 54;
 const DATA_DIR = './data';
 const SCORE_FILE = path.join(DATA_DIR, 'poem_scores.csv');
 
