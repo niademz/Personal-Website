@@ -280,6 +280,250 @@
       from { opacity: 0.1; }
       to   { opacity: 1; }
     }
+
+    #sun-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at top center,
+          rgba(255, 223, 100, 0.5) 0%,
+          rgba(255, 200, 50, 0.3) 40%,
+          rgba(255, 180, 40, 0.2) 70%,
+          transparent 100%),
+        #cceeff; /* soft sky blue base */
+      animation: sunPulse 10s ease-in-out infinite;
+    }
+
+    @keyframes sunPulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+
+    #rain-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #a0a4a8; /* gentle rainy gray */
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .rain-drop {
+      position: absolute;
+      width: 1.5px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.3);
+      animation: fall 0.8s linear infinite;
+      border-radius: 0.5px;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    #storm-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1c1c1c; /* deep stormy grey */
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+      animation: storm-flash 6s infinite;
+    }
+
+    @keyframes storm-flash {
+      0%, 5%, 10%, 15%, 20%, 100% {
+        background-color: #1c1c1c;
+      }
+      3%, 12%, 18% {
+        background-color: #f8f8ff; /* lightning flash */
+      }
+    }
+
+    #fire-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 70%, #ff4500 0%, transparent 40%),
+                  radial-gradient(circle at 60% 80%, #ff8c00 0%, transparent 40%),
+                  radial-gradient(circle at 40% 85%, #ffa500 0%, transparent 40%);
+      background-color: #1a0000;
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% {
+        opacity: 1;
+        filter: brightness(1) saturate(1.1);
+      }
+      50% {
+        opacity: 0.8;
+        filter: brightness(1.4) saturate(1.3);
+      }
+      75% {
+        opacity: 0.9;
+        filter: brightness(1.2) saturate(1.5);
+      }
+    }
+
+    .fire-particle {
+      position: absolute;
+      bottom: 0;
+      width: 4px;
+      height: 4px;
+      background: orange;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: rise 3s linear infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-100px) translateX(-10px);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-200px) translateX(10px);
+        opacity: 0;
+      }
+    }
+
+    #snow-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 1;
+      animation: fallAndSway 10s linear infinite;
+    }
+
+    @keyframes fallAndSway {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0.9;
+      }
+      25% {
+        transform: translate(-10px, 25vh);
+      }
+      50% {
+        transform: translate(0, 50vh);
+      }
+      75% {
+        transform: translate(10px, 75vh);
+      }
+      100% {
+        transform: translate(0, 110vh);
+        opacity: 0.2;
+      }
+    }
+
+    #ocean-field {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background: linear-gradient(
+        180deg,
+        #0099ff 0%,
+        #00ccff 40%,
+        #cceeff 100%
+      );
+      overflow: hidden;
+    }
+
+    .ocean-wave {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 200px;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 20%, transparent 70%);
+      opacity: 0.3;
+      animation: waveMotion 6s ease-in-out infinite;
+      transform: translateX(-25%);
+    }
+
+    .ocean-wave:nth-child(2) {
+      animation-delay: 2s;
+      opacity: 0.5;
+      animation-duration: 8s;
+    }
+
+    @keyframes waveMotion {
+      0% { transform: translateX(-25%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+      100% { transform: translateX(-25%) translateY(0); }
+    }
+
+    .memory-overlay::after {
+      backdrop-filter: blur(2000px);
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at center, rgba(112, 66, 20, 0.4), transparent 70%),
+        repeating-linear-gradient(
+          45deg,
+          rgba(112, 66, 20, 0.05),
+          rgba(112, 66, 20, 0.05) 10px,
+          transparent 10px,
+          transparent 20px
+        );
+      mix-blend-mode: overlay;
+      animation: memoryFade 12s ease-in-out infinite;
+    }
+
+    @keyframes memoryFade {
+      0%, 100% { opacity: 0.8; }
+      50%      { opacity: 0.5; }
+    }
+
   </style>
   <style>
   @media (max-width: 600px) {
@@ -449,6 +693,150 @@
       }
     }
 
+    function enableSunGlow() {
+      if (!document.getElementById('sun-field')) {
+        const sun = document.createElement('div');
+        sun.id = 'sun-field';
+        document.body.appendChild(sun);
+      }
+    }
+
+    function disableSunGlow() {
+      const sun = document.getElementById('sun-field');
+      if (sun) sun.remove();
+    }
+
+    let rainFieldCreated = false;
+
+    function enableRain() {
+      if (!rainFieldCreated) {
+        const field = document.createElement('div');
+        field.id = 'rain-field';
+        for (let i = 0; i < 200; i++) {
+          const drop = document.createElement('div');
+          drop.className = 'rain-drop';
+          drop.style.left = Math.random() * 100 + 'vw';
+          drop.style.animationDelay = (Math.random() * 0.8) + 's';
+          drop.style.animationDuration = (0.5 + Math.random() * 0.5) + 's';
+          field.appendChild(drop);
+        }
+        document.body.appendChild(field);
+        rainFieldCreated = true;
+      }
+    }
+
+    function disableRain() {
+      const field = document.getElementById('rain-field');
+      if (field) {
+        field.remove();
+        rainFieldCreated = false;
+      }
+    }
+
+    let stormFieldCreated = false;
+
+    function enableStorm() {
+      if (!stormFieldCreated) {
+        const field = document.createElement('div');
+        field.id = 'storm-field';
+        document.body.appendChild(field);
+        stormFieldCreated = true;
+      }
+    }
+
+    function disableStorm() {
+      const field = document.getElementById('storm-field');
+      if (field) {
+        field.remove();
+        stormFieldCreated = false;
+      }
+    }
+
+    let fireFieldCreated = false;
+
+    function enableFire() {
+      if (!fireFieldCreated) {
+        const field = document.createElement('div');
+        field.id = 'fire-field';
+
+        for (let i = 0; i < 80; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'fire-particle';
+          particle.style.left = Math.random() * 100 + 'vw';
+          particle.style.animationDuration = (2 + Math.random() * 2) + 's';
+          particle.style.animationDelay = (Math.random() * 3) + 's';
+          field.appendChild(particle);
+        }
+
+        document.body.appendChild(field);
+        fireFieldCreated = true;
+      }
+    }
+
+    function disableFire() {
+      const field = document.getElementById('fire-field');
+      if (field) {
+        field.remove();
+        fireFieldCreated = false;
+      }
+    }
+
+    let snowFieldCreated = false;
+
+    function enableSnow() {
+      if (!snowFieldCreated) {
+        const field = document.createElement('div');
+        console.log("Snow enabled");
+        field.id = 'snow-field';
+
+        for (let i = 0; i < 100; i++) {
+          const flake = document.createElement('div');
+          flake.className = 'snowflake';
+          flake.style.left = Math.random() * 100 + 'vw';
+          flake.style.animationDuration = 5 + Math.random() * 5 + 's';
+          flake.style.animationDelay = Math.random() * 5 + 's';
+          field.appendChild(flake);
+        }
+
+        document.body.appendChild(field);
+        snowFieldCreated = true;
+      }
+    }
+
+    function disableSnow() {
+      const field = document.getElementById('snow-field');
+      if (field) {
+        field.remove();
+        snowFieldCreated = false;
+      }
+    }
+
+    let oceanFieldCreated = false;
+
+    function enableOcean() {
+      if (!oceanFieldCreated) {
+        const field = document.createElement('div');
+        field.id = 'ocean-field';
+
+        for (let i = 0; i < 2; i++) {
+          const wave = document.createElement('div');
+          wave.className = 'ocean-wave';
+          field.appendChild(wave);
+        }
+
+        document.body.appendChild(field);
+        oceanFieldCreated = true;
+      }
+    }
+
+    function disableOcean() {
+      const field = document.getElementById('ocean-field');
+      if (field) {
+        field.remove();
+        oceanFieldCreated = false;
+      }
+    }
+
     async function init() {
       await loadModel();
       poems = await fetch('/data/poems.json').then(r => r.json());
@@ -587,6 +975,57 @@
         enableNightSky();
       } else {
         disableNightSky();
+      }
+
+      if (fullText.toLowerCase().includes('sun')) {
+        enableSunGlow();
+      } else {
+        disableSunGlow();
+      }
+
+      const isRainy = fullText.toLowerCase().includes('rain') || fullText.toLowerCase().includes('rainfall');
+      if (isRainy) {
+        enableRain();
+        body.style.backgroundColor = '#a0a4a8'; // gentle rainy gray override
+      } else {
+        disableRain();
+      }
+
+      const isStormy = fullText.toLowerCase().includes('storm') || fullText.toLowerCase().includes('stormy');
+      if (isStormy) {
+        enableStorm();
+        body.style.backgroundColor = '#1c1c1c'; // override
+      } else {
+        disableStorm();
+      }
+
+      if (fullText.toLowerCase().includes('fire')) {
+        enableFire();
+      } else {
+        disableFire();
+      }
+
+      if (fullText.toLowerCase().includes('snow') || fullText.toLowerCase().includes('ice')) {
+        enableSnow();
+        body.style.backgroundColor = '#b0d8ff';
+      } else {
+        disableSnow();
+      }
+
+      
+      if (fullText.toLowerCase().includes('ocean ') || fullText.toLowerCase().includes('sea ') || fullText.toLowerCase().includes('water ')) {
+        enableOcean();
+        document.body.style.backgroundColor = '#00aaff';
+      } else {
+        disableOcean();
+      }
+
+      const isMemory = /\b(dream|memory|remember(ed|ing)?)\b/i.test(fullText.toLowerCase());
+      if (isMemory) {
+        document.body.classList.add('memory-overlay');
+        document.body.style.backgroundColor = '#5c5c5c';
+      } else {
+        document.body.classList.remove('memory-overlay');
       }
     }
 
