@@ -67,7 +67,8 @@ Expand training dataset
 
 Include per-line emotion explanations or overlays
 
-📄 License
+## License
+
 This poetry page and its models are part of my personal website and are not licensed for redistribution without permission. For academic or personal experimentation, feel free to explore and adapt.
 
 Let me know if you want:
