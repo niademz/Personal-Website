@@ -136,7 +136,7 @@ const model = {
   };
   
   fs.writeFileSync(
-    './data/model_weights.json',
+    './models/bow_model.json',
     JSON.stringify(model, null, 2),
     'utf-8'
   );

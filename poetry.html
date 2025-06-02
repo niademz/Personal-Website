@@ -178,6 +178,35 @@
     a:hover {
       text-decoration: underline;
     }
+
+    .model-select-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      margin-left: 10px;
+      background-color: var(--header-background);
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--link-color);
+    }
+
+    .model-select-wrapper label {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .model-select-wrapper select {
+      font-size: 14px;
+      padding: 5px 8px;
+      border-radius: 5px;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      border: 1px solid var(--link-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
     /* Joy pop */
     .joy-pop {
       text-shadow: 0 0 8px rgba(255,215,0,0.8), 0 0 16px rgba(255,215,0,0.5);
@@ -603,6 +632,11 @@
     grid-area: next;
     justify-self: start;
   }
+
+  .model-select-wrapper {
+    margin: 10px auto;
+    justify-content: center;
+  }
   }
 </style>
 </head>
@@ -613,6 +647,13 @@
       <h1>My Poetry!!</h1>
       <button class="theme-toggle-button" onclick="toggleTheme()">Toggle Dark Mode</button>
       <a href="index.html" class="poetry-button">Back to Home</a>
+      <div class="model-select-wrapper">
+        <label for="modelSelect">Model:</label>
+        <select id="modelSelect">
+          <option value="bow">Bag of Words</option>
+          <option value="semantic">Semantic (TF-IDF + GloVe)</option>
+        </select>
+      </div>
     </div>
   </header>
 
@@ -661,8 +702,9 @@
   </script>
 
   <script type="module">
-    import { loadModel, predictEmotionScores } from './scripts/infer-browser.js';
+    import { loadModels, predictEmotionScoresBoW, predictEmotionScoresSemantic } from './scripts/infer-browser.js';
 
+    let activeModel = 'bow';
     const emotions = ['Happiness','Anger','Joy','Sadness','Fear','Surprise','Nostalgia','Longing','Hope','Contempt','Awe','Melancholy'];
     let poems = [], currentIndex = 0, filterIdx = null;
     let starFieldCreated = false;
@@ -838,9 +880,14 @@
     }
 
     async function init() {
-      await loadModel();
+      await loadModels();
       poems = await fetch('/data/poems.json').then(r => r.json());
-      renderPoem();
+
+      document.getElementById('modelSelect').addEventListener('change', (e) => {
+        activeModel = e.target.value;
+        renderPoem();
+      });
+
       document.getElementById('prevBtn').onclick = () => {
         currentIndex = (currentIndex - 1 + poems.length) % poems.length;
         renderPoem();
@@ -859,6 +906,14 @@
           filterIdx === null ? clearFilter() : applyFilter(filterIdx);
         });
       });
+
+      renderPoem();
+    }
+
+    function getScores(text) {
+      return activeModel === 'semantic'
+        ? predictEmotionScoresSemantic(text)
+        : predictEmotionScoresBoW(text);
     }
 
     function renderPoem() {
@@ -874,11 +929,11 @@
           const span = document.createElement('span');
           span.className = 'poem-line';
           span.textContent = line;
-          span.dataset.scores = JSON.stringify(predictEmotionScores(line));
+          span.dataset.scores = JSON.stringify(getScores(line));
           container.appendChild(span);
         }
       });
-      const scores = predictEmotionScores(text);
+      const scores = getScores(text);
       applyTheming(scores, title + '' + text);
       clearFilter();
     }
