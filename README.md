@@ -26,22 +26,6 @@ A more advanced model that embeds each word into a 100-dimensional semantic vect
 
 > Due to GloVe's file size, the actual vectors are not included in this repository. You must download the appropriate file manually (see below).
 
----
-
-##  Directory Structure
-
-/
-├── poetry.html # Main emotion-aware poetry page
-├── index.html # Static homepage
-├── data/
-│ ├── poems.json # my poems with title and text
-│ ├── vocab.json # Vocabulary list used by BoW model
-│ └── [glove-mini.json] # mini GloVe dictionary of word vectors of all the words in Louise Gluck poems and 
-├── models/
-│ ├── bow_model.json # Trained BoW model
-│ └── w2v_model.json # Trained semantic model
-└── scripts/
-└── infer-browser.js # In-browser inference logic (shared by both models)
 
 
 ## Running Locally
