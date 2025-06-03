@@ -96,6 +96,7 @@
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       margin-bottom: 20px;
+      transition: filter 0.3s ease;
     }
     #poem-container h2 {
       margin-top: 0;
@@ -212,10 +213,62 @@
       text-shadow: 0 0 8px rgba(255,215,0,0.8), 0 0 16px rgba(255,215,0,0.5);
     }
 
-    /* Sadness blur & grayscale */
-    .sad-blur {
-      filter: grayscale(0.7) blur(2px);
+    @keyframes angryPulse {
+      0%   { box-shadow: 0 0 0 rgba(255, 0, 0, 0.0); }
+      50%  { box-shadow: 0 0 15px rgba(255, 0, 0); }
+      100% { box-shadow: 0 0 0 rgba(255, 0, 0, 0.0); }
     }
+    .anger-pulse {
+      border: 3px solid red;
+      animation: angryPulse 1.2s infinite ease-in-out;
+    }
+
+    @keyframes rageShake {
+      0%   { transform: translate(1px, 1px); }
+      25%  { transform: translate(-2px, 0); }
+      50%  { transform: translate(2px, -1px); }
+      75%  { transform: translate(-1px, 2px); }
+      100% { transform: translate(0, 0); }
+    }
+    .anger-rage {
+      border: 2px solid red;
+      animation: rageShake 0.2s infinite;
+    }
+
+    .anger-flame {
+      border: 2px solid crimson;
+      box-shadow: 0 0 8px 2px rgba(255, 0, 0, 0.7),
+                  0 0 16px 4px rgba(255, 60, 0, 0.3);
+    }
+
+    @keyframes deepRedGlow {
+      0%   { box-shadow: 0 0 0 rgba(255, 0, 0, 0); }
+      50%  { box-shadow:
+              0 0 15px 6px rgba(255, 0, 0, 0.8),
+              0 0 25px 8px rgba(255, 100, 0, 0.3); }
+      100% { box-shadow: 0 0 0 rgba(255, 0, 0, 0); }
+    }
+    .anger-pulse-intense {
+      border: 3px solid red;
+      animation: deepRedGlow 1.8s ease-in-out infinite;
+    }
+
+    /* Sadness blur & grayscale */
+    @keyframes sadnessPulse {
+    0% {
+      filter: none;
+    }
+    50% {
+      filter: grayscale(0.7) blur(1px) brightness(0.85);
+    }
+    100% {
+      filter: none;
+    }
+  }
+
+  .sad-blur {
+    animation: sadnessPulse 4s ease-in-out infinite;
+  }   
 
     /* Fear shake */
     @keyframes shake {
@@ -948,11 +1001,13 @@
       body.style.backgroundColor = `hsla(${hue},60%,50%,${opacity})`;
 
       // 2) Border color by anger
-      if (a > 3) {
-        pc.style.border = `4px solid rgba(255,0,0,${a/10})`;
-      } else {
-        pc.style.border = 'none';
+      pc.classList.remove('anger-pulse', 'anger-rage', 'anger-flame', 'anger-pulse-intense', 'anger-burn', 'anger-static');
+      if (a > 7) {
+        pc.classList.add('anger-pulse-intense');
+      } else if (a > 3) {
+        pc.classList.add('anger-flame');
       }
+
 
       // 3) Joy → poppy text shadow
       if (j > 5) {
@@ -963,9 +1018,21 @@
 
       // 4) Sadness → grayscale + blur filter
       if (s > 5) {
-        pc.classList.add('sad-blur');
+        pc.style.filter = "";     
+        pc.classList.add('sad-blur');  
       } else {
+        
+        
         pc.classList.remove('sad-blur');
+
+        const grayPct      = m * 10;                     
+        const angerDampen  = Math.max(0, 1 - a / 10);
+
+        pc.style.filter = `
+          grayscale(${grayPct * angerDampen}%)
+          brightness(${1 - m * 0.02 * angerDampen})
+          saturate(${1 - m * 0.05 * angerDampen})
+        `.trim();
       }
 
       // 5) Fear → shake animation
@@ -1016,15 +1083,6 @@
         pc.classList.remove('awe-glow');
       }
 
-      const grayPct = m * 10               
-      const bright  = 1 - m * 0.02         
-      const sat     = 1 - m * 0.05         
-
-      pc.style.filter = `
-        grayscale(${grayPct}%)
-        brightness(${bright})
-        saturate(${sat})
-      `.trim()
 
       if (fullText.toLowerCase().includes('night')) {
         enableNightSky();
