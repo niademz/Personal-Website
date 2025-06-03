@@ -259,7 +259,7 @@
       filter: none;
     }
     50% {
-      filter: grayscale(0.7) blur(1px) brightness(0.85);
+      filter: grayscale(0.7) blur(0.5px) brightness(0.85);
     }
     100% {
       filter: none;
@@ -285,13 +285,22 @@
       0%,100% { opacity:1; }
       50%     { opacity:0.2; }
     }
+
+    /* replace your existing flash animation with something like this: */
+    @keyframes surpriseFlash2 {
+      0%   { opacity: 1; background-color: transparent; }
+      25%  { opacity: 0.3; background-color: rgba(255, 255, 200, 0.6); }
+      50%  { opacity: 1; background-color: rgba(255, 255, 200, 0); }
+      100% { opacity: 1; background-color: transparent; }
+    }
+
     .surprise-flash {
-      animation: flash 0.2s ease-in-out;
+      animation: surpriseFlash2 0.4s ease-in-out;
     }
 
     /* Nostalgia sepia */
     .nostalgia-sepia {
-      filter: sepia(0.5);
+      filter: sepia(0.8) contrast(1.1) brightness(0.9);
     }
 
     /* Longing pan the body background */
@@ -1017,7 +1026,7 @@
       }
 
       // 4) Sadness → grayscale + blur filter
-      if (s > 8) {
+      if (s > 6) {
         pc.style.filter = "";     
         pc.classList.add('sad-blur');  
       } else {
@@ -1045,11 +1054,13 @@
       // 6) Surprise → flash
       if (sp > 7) {
         pc.classList.add('surprise-flash');
-        setTimeout(() => pc.classList.remove('surprise-flash'), 200);
+        setTimeout(() => pc.classList.remove('surprise-flash'), 400);
       }
 
       // 7) Nostalgia → sepia wash
-      if (n > 5) {
+      if (n > 4) {
+        pc.style.filter = "";
+        pc.classList.remove('sad-blur');
         pc.classList.add('nostalgia-sepia');
       } else {
         pc.classList.remove('nostalgia-sepia');
