@@ -1107,13 +1107,7 @@
         disableSunGlow();
       }
 
-      const isRainy = fullText.toLowerCase().includes('rain') || fullText.toLowerCase().includes('rainfall');
-      if (isRainy) {
-        enableRain();
-        body.style.backgroundColor = '#a0a4a8'; // gentle rainy gray override
-      } else {
-        disableRain();
-      }
+      
 
       const isStormy = fullText.toLowerCase().includes('storm') || fullText.toLowerCase().includes('stormy');
       if (isStormy) {
@@ -1150,6 +1144,14 @@
         document.body.style.backgroundColor = '#5c5c5c';
       } else {
         document.body.classList.remove('memory-overlay');
+      }
+
+      const isRainy = fullText.toLowerCase().includes('rain') || fullText.toLowerCase().includes('rainfall');
+      if (isRainy) {
+        enableRain();
+        body.style.backgroundColor = '#a0a4a8'; // gentle rainy gray override
+      } else {
+        disableRain();
       }
     }
 
